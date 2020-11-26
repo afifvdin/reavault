@@ -2,7 +2,7 @@
 
 > Desktop-platform, free and open-source password manager based on PyQt5
 
-## Disclaimer
+## Disclaimer For All Of You Coming From Indonesia
 
 Untuk dokumentasi resmi versi Indonesia bisa dilihat di README_ID.md
 
@@ -22,11 +22,27 @@ The level of risk of forgetting a password is very vulnerable to many user accou
 
 Soon :), glad to know ya'll waitin'
 
+## Installation
+
+Our Team Wondering if we can make installation for Windows, Mac, or even Linux
+
+### Windows
+
+Some wrap text here
+
+### Mac Os
+
+Some wrap text here
+
+### Linux
+
+Some wrap text here
+
 ## Contributors
 
-- Afifvdin ([@afifvdin](https://github.com/Afifvdin))
-- Riska Ayu
-- Erika
+- Afifvdin  ([@Afifvdin](https://github.com/Afifvdin))
+- Riska Ayu ([@Riskaayu06](https://github.com/Riskaayu06))
+- Erika     ([@erikaromantika](https://github.com/erikaromantika))
 
 ## License
 
