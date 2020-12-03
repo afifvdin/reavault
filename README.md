@@ -1,14 +1,10 @@
-# Py-Password-Manager (PPW)
+# Reavault
 
 > Desktop-platform, free and open-source password manager based on PyQt5
 
-## Disclaimer For All Of You Coming From Indonesia
-
-Untuk dokumentasi resmi versi Indonesia bisa dilihat di README_ID.md
-
 ## About
 
-PyPasswordManager is the application you need for your password management. This application is your personal assistance for managing passwords so you don't have to remember the passwords of every site or system you have. All you need is to remember the password of this application to secure this application from irresponsible parties
+Reavault is the application you need for your password management. This application is your personal assistance for managing passwords so you don't have to remember the passwords of every site or system you have. All you need is to remember the password of this application to secure this application from irresponsible parties
 
 This is a desktop application created from Qt in the Python programming language. Your password will be safe in this data based application.
 
@@ -41,7 +37,7 @@ Some wrap text here
 ## Contributors
 
 - Afifvdin  ([@Afifvdin](https://github.com/Afifvdin))
-- Riska Ayu ([@Riskaayu06](https://github.com/Riskaayu06))
+- Riska Ayu ([@Riskayu06](https://github.com/Riskayu06))
 - Erika     ([@erikaromantika](https://github.com/erikaromantika))
 
 ## License
