@@ -1,1 +1,1 @@
-# Contain Screenshot for application
+# Contain Screenshot of UI for application
