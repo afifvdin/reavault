@@ -1,4 +1,4 @@
-import sqlite3
+from pysqlcipher3 import dbapi2 as sqlite3
 # import json
 def connectDB():
     # Connect Database Application With Location Given
@@ -78,7 +78,7 @@ def intializeTable(connection):
                 FOREIGN KEY (vault_color_id) REFERENCES colors(color_id)
             );
         ''')
-        connection.commit()
+        # connection.commit()
     except Exception as e:
         print(e)
 
@@ -86,7 +86,7 @@ def fetchData(connection, query="SELECT * FROM password_vault;"):
     # Fetching Data and return it to variable
     cursor = connection.cursor()
     cursor.execute(query)
-    connection.commit()
+    # connection.commit()
     return cursor.fetchall()
 
 def changeData(connection, method, query):
@@ -94,7 +94,8 @@ def changeData(connection, method, query):
     try:
         cursor = connection.cursor()
         cursor.execute(query)
-        connection.commit()
+        # connection.commit()
         return f"{method} Successfull"
-    except:
+    except Exception as e:
+        return e
         return f"{method} Not Succesfull"
