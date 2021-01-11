@@ -2,6 +2,8 @@
 
 > Desktop-platform, free and open-source password manager based on PyQt5
 
+![alt text](http://https://github.com/afifvdin/reavault/screenshots/main.png)
+
 ## About
 
 Reavault is the application you need for your password management. This application is your personal assistance for managing passwords so you don't have to remember the passwords of every site or system you have. All you need is to remember the password of this application to secure this application from irresponsible parties
