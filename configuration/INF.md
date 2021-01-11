@@ -1,1 +1,0 @@
-# This is for User and App Configuration, PLEASE WRITE IN JSON

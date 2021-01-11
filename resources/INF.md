@@ -1,2 +1,0 @@
-# This is for asset needed for application, eg. image, icon, layout etc.
-github
