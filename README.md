@@ -15,7 +15,7 @@ Looking Far : Filter and Search Features
 
 ## Installation
 
-# Dependencies
+### Dependencies
 - pyqt5
 
 ## Contributors
