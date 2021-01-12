@@ -8,7 +8,7 @@ import sys, platform
 
 app = QApplication(sys.argv)
 if platform.system() == "Windows":
-    app.setFont(QtGui.QFont("Arial", 11, 500))
+    app.setFont(QtGui.QFont("Arial", 11))
 
 user = User()
 user.databaseFunction(db)
