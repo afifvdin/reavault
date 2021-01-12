@@ -15,14 +15,25 @@ Reavault is the application you need for your password management. This applicat
 This is a desktop application created from Qt in the Python programming language. Your password will be safe in this data based application.
 
 NOTE : THIS VERSION IS STILL ON BETA TESTING
-Soon Update : AES Encryption
 
-Looking Far : Filter and Search Features
+## Features
+- Encrypted Database
 
 ## Installation
+See [Release](https://github.com/afifvdin/reavault/release)
 
 ### Dependencies
 - pyqt5
+- sqlcipher3-binary
+
+### Install Dependencies
+You may use pip3 instead of pip
+
+- pip install pyqt5
+- pip install sqlcipher3-binary *(pip installation for sqlcipher3-binary only works in linux)*
+
+### Running
+python3 App.py
 
 ## Contributors
 
