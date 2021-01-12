@@ -1,13 +1,13 @@
 from PyQt5.QtWidgets import *
 from PyQt5 import QtGui, QtCore
-import json
-import sys
+import json, sys, os
 
 class User(QWidget):
     def __init__(self, *args, **kwargs):
         super(User, self).__init__(*args, **kwargs)
         self.parentLayout = QHBoxLayout()
         self.changeTheme()
+        self.key = ""
 
         self.parentLayout.setSpacing(0)
         self.parentLayout.setContentsMargins(0, 0, 0, 0)
@@ -16,6 +16,7 @@ class User(QWidget):
         self.setFixedHeight(250)
         self.setFixedWidth(600)
         self.setWindowTitle("reavault")
+        self.setWindowIcon(QtGui.QIcon("icon.png"))
 
     def changeTheme(self, isChange=False):
         res = None
@@ -225,7 +226,7 @@ class User(QWidget):
 
         dontHave.setAlignment(QtCore.Qt.AlignCenter)
         loginBtn.clicked.connect(lambda: self.verifyUser(userField.text(), passwordField.text()))
-        registerBtn.clicked.connect(lambda: self.userWidget.setCurrentIndex(1))
+        registerBtn.clicked.connect(self.onRegister)
 
         hSpacer = QSpacerItem(10, 10, QSizePolicy.MinimumExpanding, QSizePolicy.MinimumExpanding)
         vSpacer = QSpacerItem(10, 10, QSizePolicy.MinimumExpanding, QSizePolicy.MinimumExpanding)
@@ -251,6 +252,62 @@ class User(QWidget):
             f"color: {self.complementBg};\n"
             f"background-color: {self.secondBg};"
         )
+
+    def onRegister(self):
+        getCwd = os.getcwd()
+        if os.path.exists(getCwd+"/bin/database.db") == True:
+            res = self.db.fetchData("SELECT * FROM Users;", self.key)
+            if len(res) > 0:
+                self.dialog = QDialog(self)
+                self.dialog.setWindowTitle("Warning")
+                self.dialog.setFixedWidth(400)
+                self.dialog.setFixedHeight(200)
+
+                layout = QGridLayout()
+                text = QLabel("User already exist!\nIf you proceed sign up, user and database will be overwritten.\n\nContinue to proceed?\nAll things have been done cannot be undone!")
+                text.setWordWrap(True)
+
+                okBtn = QPushButton("Continue")
+                okBtn.clicked.connect(self.removeUser)
+                cancelBtn = QPushButton("Cancel")
+                cancelBtn.clicked.connect(lambda: self.dialog.close())
+
+                okBtn.setSizePolicy(QSizePolicy.Maximum, QSizePolicy.Maximum)
+                cancelBtn.setSizePolicy(QSizePolicy.Maximum, QSizePolicy.Maximum)
+
+                okBtn.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+                okBtn.setStyleSheet(
+                    "QPushButton{\n"
+                    "   background-color: #FF0000;\n"
+                    "   color: #FFFFFF;"
+                    "   border-radius: 10px;\n"
+                    "   padding: 5px 15px 5px;\n"
+                    "   text-align: center;\n"
+                    "}\n"
+                    "QPushButton::hover{\n"
+                    "   background-color: #ED1C24;\n"
+                    "}"
+                )
+
+                cancelBtn.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+                cancelBtn.setStyleSheet(
+                    "QPushButton{\n"
+                    "   border-radius: 10px;\n"
+                    "   padding: 5px 15px 5px;\n"
+                    "   text-align: center;\n"
+                    "}\n"
+                    "QPushButton::hover{\n"
+                    f"  background-color: {self.btnPrimaryBg};\n"
+                    "}"
+                )
+
+                layout.addWidget(text, 0, 0, 1, 3)
+                layout.addWidget(okBtn, 1, 1)
+                layout.addWidget(cancelBtn, 1, 2)
+                self.dialog.setLayout(layout)
+                self.dialog.exec_()
+                return
+        self.userWidget.setCurrentIndex(1)
 
     def registerUI(self):
         parentLayout = QGridLayout()
@@ -395,7 +452,6 @@ class User(QWidget):
 
     def databaseFunction(self, x):
         self.db = x
-        self.db.interactDB()
     
     def raiseError(self, information):
         msg = QMessageBox()
@@ -411,17 +467,31 @@ class User(QWidget):
             self.raiseError("Username or Password not correct!")
             return
         if repwd == None:
-            res = self.db.fetchData(f"SELECT * FROM Users WHERE username = '{uname}' and password = '{pwd}';")
-            if len(res) > 0:
-                self.Storage.changeTheme()
-                self.Storage.show()
-                self.close()
+            getCwd = os.getcwd()
+            if os.path.exists(getCwd+"/bin/database.db") == True:
+                res = self.db.fetchData(f"SELECT * FROM Users WHERE username = '{uname}' and password = '{pwd}';", pwd)
+                if len(res) > 0:
+                    self.close()
+                    self.key = pwd
+                    self.Storage.setKey(self.key)
+                    self.Storage.changeTheme()
+                    self.Storage.show()
+                else:
+                    self.raiseError("Username or Password Not Match!")
             else:
-                self.raiseError("Username or Password Not Found!")
+                self.raiseError("No User!")
             return
-        req = self.db.insertData(f"INSERT INTO Users VALUES(null, '{uname}', '{pwd}');")
+        self.key = pwd
+        self.db.interactDB(self.key)
+        self.db.insertUser(f"INSERT INTO Users VALUES(null, '{uname}', '{pwd}');", self.key)
         self.userWidget.setCurrentIndex(0)
         return
+
+    def removeUser(self):
+        self.dialog.close()
+        self.userWidget.setCurrentIndex(1)
+        getCwd = os.getcwd()
+        os.remove(getCwd+"/bin/database.db")
         
 if __name__ == '__main__':
     app = QApplication(sys.argv)

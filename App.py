@@ -3,7 +3,7 @@ from widgets.Storage import *
 from widgets.User import *
 import bin.__database__ as db
 #
-from PyQt5.QtWidgets import *
+from PyQt5.QtWidgets import QApplication
 import sys
 
 app = QApplication(sys.argv)

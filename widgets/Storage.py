@@ -6,6 +6,7 @@ import sys
 class Storage(QMainWindow):
     def __init__(self, db, *args, **kwargs):
         super(Storage, self).__init__(*args, **kwargs)
+        self.key = ''
         self.db = db
         self.centralWidget = QWidget()
         self.centralLayout = QHBoxLayout()
@@ -18,6 +19,9 @@ class Storage(QMainWindow):
         self.setMinimumWidth(1000)
 
         self.setWindowTitle("reavault")
+        self.setWindowIcon(QtGui.QIcon("icon.png"))
+    def setKey(self, key):
+        self.key = key
 
     def changeTheme(self, isChange=False):
         res = None
@@ -41,7 +45,6 @@ class Storage(QMainWindow):
             self.complementBg   = "#242424"
             self.themeIconDir   = "resources/darkToggle.png"
             self.editIconDir    = "resources/editDark.png"
-            # self.infoIconDir    = "resources/infoDark.png"
             self.rightArrowDir  = "resources/rightLight.png"
         else:
             self.primaryBg      = "#242424"
@@ -54,7 +57,6 @@ class Storage(QMainWindow):
             self.complementBg   = "#FFFFFF"
             self.themeIconDir   = "resources/lightToggle.png"
             self.editIconDir    = "resources/edit.png"
-            # self.infoIconDir    = "resources/infoLight.png"
             self.rightArrowDir  = "resources/rightDark.png"
 
         # Save File
@@ -161,7 +163,7 @@ class Storage(QMainWindow):
 
     def leftRedoButton(self):
         # Retrieve Data
-        getData = self.db.fetchData("SELECT * FROM Vaults;")
+        getData = self.db.fetchData("SELECT * FROM Vaults;", self.key)
         for item in getData:
             btn = QPushButton(str(item[1]))
             btn.setStyleSheet(
@@ -283,7 +285,7 @@ class Storage(QMainWindow):
 
         ########################################################        
 
-        getData = self.db.fetchData(f"SELECT * FROM Vaults WHERE id = {itemId};")
+        getData = self.db.fetchData(f"SELECT * FROM Vaults WHERE id = {itemId};", self.key)
 
         userLabel = QLabel("Username")
         pwdLabel = QLabel("Password")
@@ -539,7 +541,7 @@ class Storage(QMainWindow):
         if isUpdate == True:
             itemId = self.state["id"]
             self.state["isUpdate"] = True
-            getData = self.db.fetchData(f"SELECT * FROM Vaults WHERE id = {itemId};")
+            getData = self.db.fetchData(f"SELECT * FROM Vaults WHERE id = {itemId};", self.key)
 
             self.titleField.setText(str(getData[0][1]))
             self.userField.setText(str(getData[0][2]))
@@ -559,18 +561,16 @@ class Storage(QMainWindow):
                 f"title = '{self.titleField.text()}', "
                 f"username = '{self.userField.text()}', "
                 f"password = '{self.pwdField.text()}' "
-                f"WHERE id = {self.state['id']};"
+                f"WHERE id = {self.state['id']};" ,self.key
             )
         else:
-            self.db.insertData("INSERT INTO Vaults "
-                f"VALUES(null, '{self.titleField.text()}', '{self.userField.text()}', '{self.pwdField.text()}');"
-            )
+            self.db.insertData(f"INSERT INTO Vaults VALUES(null, '{self.titleField.text()}', '{self.userField.text()}', '{self.pwdField.text()}');", self.key)
         self.leftUIAfter()
         self.rightUIBefore()
         self.spawnView()
 
     def onDelete(self):
-        self.db.insertData(f"DELETE FROM Vaults WHERE id = {self.state['id']};")
+        self.db.insertData(f"DELETE FROM Vaults WHERE id = {self.state['id']};", self.key)
         self.leftUIAfter()
         self.rightUIBefore()
         self.spawnView()

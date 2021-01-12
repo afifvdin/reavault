@@ -1,8 +1,10 @@
-from pysqlcipher3 import dbapi2 as sqlite3
-def interactDB():
+from sqlcipher3 import dbapi2 as sqlite3
+def interactDB(key):
     conn = sqlite3.connect("bin/database.db")
     cursor = conn.cursor()
     try:
+        cursor.execute(f"PRAGMA key='{key}';")
+        conn.commit()
         cursor.execute('''
             CREATE TABLE Users (
                 id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
@@ -26,16 +28,35 @@ def interactDB():
         conn.close()
 
         #INSERT DATA
-def insertData(query):
+def insertData(query, key):
     conn = sqlite3.connect("bin/database.db")
     c = conn.cursor()
+    c.execute(f"PRAGMA key='{key}';")
+    conn.commit()
     c.execute(query)
     conn.commit()
     conn.close()
 
         #FETCH DATA
-def fetchData(query):
-    conn = sqlite3.connect("bin/database.db")
-    c = conn.cursor()
-    c.execute(query)
-    return c.fetchall()
+def fetchData(query, key):
+    try:
+        conn = sqlite3.connect("bin/database.db")
+        c = conn.cursor()
+        c.execute(f"PRAGMA key='{key}';")
+        conn.commit()
+        c.execute(query)
+        return c.fetchall()
+    except:
+        return []
+
+def insertUser(query, key):
+    try:
+        conn = sqlite3.connect("bin/database.db")
+        c = conn.cursor()
+        c.execute(f"PRAGMA key='{key}';")
+        conn.commit()
+        c.execute(query)
+        conn.commit()
+        conn.close()
+    except Exception as e:
+        print(e)
