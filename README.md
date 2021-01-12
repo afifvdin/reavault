@@ -2,7 +2,8 @@
 
 > Desktop-platform, free and open-source password manager based on PyQt5
 
-[screenshot](https://github.com/afifvdin/reavault/blob/main/screenshots/main.png?raw=true)
+
+![](https://github.com/afifvdin/reavault/blob/main/screenshots/main.png?raw=true)
 
 ## About
 
