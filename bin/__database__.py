@@ -1,4 +1,4 @@
-from sqlcipher3 import dbapi2 as sqlite3
+from pysqlcipher3 import dbapi2 as sqlite3
 def interactDB(key):
     conn = sqlite3.connect("bin/database.db")
     cursor = conn.cursor()

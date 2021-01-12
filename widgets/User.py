@@ -14,7 +14,7 @@ class User(QWidget):
         self.setLayout(self.parentLayout)
         
         self.setFixedHeight(250)
-        self.setFixedWidth(600)
+        self.setFixedWidth(620)
         self.setWindowTitle("reavault")
         self.setWindowIcon(QtGui.QIcon("icon.png"))
 
