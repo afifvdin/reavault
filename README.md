@@ -24,13 +24,16 @@ See [Release](https://github.com/afifvdin/reavault/release)
 
 ### Dependencies
 - pyqt5
-- sqlcipher3-binary
+- pysqlcipher3
 
 ### Install Dependencies
 You may use pip3 instead of pip
 
 - pip install pyqt5
-- pip install sqlcipher3-binary *(pip installation for sqlcipher3-binary only works in linux)*
+- pip install pysqlcipher3 *(pip installation for pysqlcipher3 only works in linux)*
+
+### INSTALL sqlcipher3 on Windows
+If you're in Windows, install pysqlcipher3 is litte tricky, so please use this following [link](https://stackoverflow.com/questions/55446420/issue-in-installing-pysqlcipher3)
 
 ### Running
 python3 App.py
