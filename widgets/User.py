@@ -256,57 +256,56 @@ class User(QWidget):
     def onRegister(self):
         getCwd = os.getcwd()
         if os.path.exists(getCwd+"/bin/database.db") == True:
-            res = self.db.fetchData("SELECT * FROM Users;", self.key)
-            if len(res) > 0:
-                self.dialog = QDialog(self)
-                self.dialog.setWindowTitle("Warning")
-                self.dialog.setFixedWidth(400)
-                self.dialog.setFixedHeight(200)
+            self.dialog = QDialog(self)
+            self.dialog.setWindowTitle("Warning")
+            self.dialog.setFixedWidth(400)
+            self.dialog.setFixedHeight(200)
 
-                layout = QGridLayout()
-                text = QLabel("User already exist!\nIf you proceed sign up, user and database will be overwritten.\n\nContinue to proceed?\nAll things have been done cannot be undone!")
-                text.setWordWrap(True)
+            layout = QGridLayout()
+            text = QLabel("User already exist!\nIf you proceed sign up, user and database will be overwritten.\n\nContinue to proceed?\nAll things have been done cannot be undone!")
+            text.setWordWrap(True)
 
-                okBtn = QPushButton("Continue")
-                okBtn.clicked.connect(self.removeUser)
-                cancelBtn = QPushButton("Cancel")
-                cancelBtn.clicked.connect(lambda: self.dialog.close())
+            okBtn = QPushButton("Continue")
+            okBtn.clicked.connect(self.removeUser)
+            cancelBtn = QPushButton("Cancel")
+            cancelBtn.clicked.connect(lambda: self.dialog.close())
 
-                okBtn.setSizePolicy(QSizePolicy.Maximum, QSizePolicy.Maximum)
-                cancelBtn.setSizePolicy(QSizePolicy.Maximum, QSizePolicy.Maximum)
+            okBtn.setSizePolicy(QSizePolicy.Maximum, QSizePolicy.Maximum)
+            cancelBtn.setSizePolicy(QSizePolicy.Maximum, QSizePolicy.Maximum)
 
-                okBtn.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-                okBtn.setStyleSheet(
-                    "QPushButton{\n"
-                    "   background-color: #FF0000;\n"
-                    "   color: #FFFFFF;"
-                    "   border-radius: 10px;\n"
-                    "   padding: 5px 15px 5px;\n"
-                    "   text-align: center;\n"
-                    "}\n"
-                    "QPushButton::hover{\n"
-                    "   background-color: #ED1C24;\n"
-                    "}"
-                )
+            okBtn.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+            okBtn.setStyleSheet(
+                "QPushButton{\n"
+                "   background-color: #FF0000;\n"
+                "   color: #FFFFFF;"
+                "   border-radius: 10px;\n"
+                "   padding: 5px 15px 5px;\n"
+                "   text-align: center;\n"
+                "}\n"
+                "QPushButton::hover{\n"
+                "   background-color: #ED1C24;\n"
+                "}"
+            )
 
-                cancelBtn.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-                cancelBtn.setStyleSheet(
-                    "QPushButton{\n"
-                    "   border-radius: 10px;\n"
-                    "   padding: 5px 15px 5px;\n"
-                    "   text-align: center;\n"
-                    "}\n"
-                    "QPushButton::hover{\n"
-                    f"  background-color: {self.btnPrimaryBg};\n"
-                    "}"
-                )
+            cancelBtn.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+            cancelBtn.setStyleSheet(
+                "QPushButton{\n"
+                "   border-radius: 10px;\n"
+                "   padding: 5px 15px 5px;\n"
+                "   text-align: center;\n"
+                "}\n"
+                "QPushButton::hover{\n"
+                f"  background-color: {self.btnPrimaryBg};\n"
+                "}"
+            )
 
-                layout.addWidget(text, 0, 0, 1, 3)
-                layout.addWidget(okBtn, 1, 1)
-                layout.addWidget(cancelBtn, 1, 2)
-                self.dialog.setLayout(layout)
-                self.dialog.exec_()
-                return
+            layout.addWidget(text, 0, 0, 1, 3)
+            layout.addWidget(okBtn, 1, 1)
+            layout.addWidget(cancelBtn, 1, 2)
+            self.dialog.setLayout(layout)
+            self.dialog.setStyleSheet(f"color: {self.complementBg}")
+            self.dialog.exec_()
+            return
         self.userWidget.setCurrentIndex(1)
 
     def registerUI(self):
