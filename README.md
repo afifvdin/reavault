@@ -1,4 +1,4 @@
-# Reavault
+# Reavault [Project Archived]
 
 <p align="center">
   <img src="https://github.com/afifvdin/reavault/blob/main/screenshots/iconBig.png?raw=true">
